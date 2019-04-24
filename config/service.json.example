@@ -1,0 +1,12 @@
+{
+  "keys": {
+    "api_key": "XXXXXXXXXXXXXXXXXXXXXXX",
+    "domain": "www.example.com",
+    "host": "api.eu.mailgun.net"
+  },
+  "mail": {
+    "from": "Bitfinex Marketing <marketing@bitfinex.com>",
+    "subject": "Some subject",
+    "text": "This email has HTML content, please enable HTML"
+  }
+}
