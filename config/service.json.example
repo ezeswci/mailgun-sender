@@ -1,6 +1,6 @@
 {
   "keys": {
-    "api_key": "XXXXXXXXXXXXXXXXXXXXXXX",
+    "apiKey": "XXXXXXXXXXXXXXXXXXXXXXX",
     "domain": "www.example.com",
     "host": "api.eu.mailgun.net"
   },
