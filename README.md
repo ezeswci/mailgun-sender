@@ -35,6 +35,18 @@ cp config/service.json.example config/service.json
 
 - Progress would be shown on console
 
+## Unsubscribe
+
+As to add the link to unsubscribe from email add on HTML template variable %unsubscribe_url%
+
+- HTML example:
+
+```console
+<a href="%unsubscribe_url%"> unsubscribe here </a>
+```
+
+- More information: https://documentation.mailgun.com/en/latest/api-unsubscribes.html
+
 ## Errors
 
-If there are errors, a csv would be created containing the email that generated the error and a details about it. 
+If there are errors, a csv would be created containing the email that generated the error and a details about it.
