@@ -30,7 +30,7 @@ And set the correspondent values to your mailgun account
 
 As to send run:
 ```console
-cp config/service.json.example config/service.json
+node index.js
 ```
 
 - Progress would be shown on console
