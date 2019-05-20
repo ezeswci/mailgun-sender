@@ -35,7 +35,7 @@ function _groupIn1k (allUsers) {
     toArray.push(email)
     recipientVars[email] = allUsers[email]
 
-    if (toArray >= 1000) {
+    if (toArray.length >= 1000) {
       res.push({
         toArray: [ ...toArray ],
         recipientVars: { ...recipientVars }
