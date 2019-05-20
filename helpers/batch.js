@@ -1,42 +1,60 @@
 'use strict'
 
 function batchListAndVariables (emailList, headers) {
-  const batch = []
-  let batchSectionTo = []
-  let batchSectionVars = []
+  const allUsers = _createRecipientVars(emailList, headers)
+
+  return _groupIn1k(allUsers)
+}
+
+function _createRecipientVars (emailList, headers) {
+  const allUsers = { }
 
   emailList.forEach((user) => {
     const email = user[0]
     const obj = user.reduce((previous, value, index) => {
-      previous[headers[index]] = value
+      if (headers[index]) previous[headers[index]] = value
       return previous
     }, {})
 
-    batchSectionTo.push(email)
-    const objTo = { }
-    objTo[email] = obj
-    batchSectionVars.push(objTo)
+    headers.forEach((header) => {
+      if (!obj[header]) obj[header] = ''
+    })
+    allUsers[email] = obj
+  })
 
-    if (batchSectionTo.length >= 1000) {
-      const b = {
-        toArray: [ ...batchSectionTo ],
-        recipientVars: [ ...batchSectionVars ]
-      }
-      batch.push(b)
-      batchSectionTo = []
-      batchSectionVars = []
+  return allUsers
+}
+
+function _groupIn1k (allUsers) {
+  const emails = Object.keys(allUsers)
+  const res = []
+  let toArray = [ ]
+  let recipientVars = {}
+
+  emails.forEach((email) => {
+    toArray.push(email)
+    recipientVars[email] = allUsers[email]
+
+    if (toArray >= 1000) {
+      res.push({
+        toArray: [ ...toArray ],
+        recipientVars: { ...recipientVars }
+      })
+
+      // reset
+      toArray = [ ]
+      recipientVars = {}
     }
   })
 
-  if (batchSectionTo.length) {
-    const b = {
-      toArray: [ ...batchSectionTo ],
-      recipientVars: [ ...batchSectionVars ]
-    }
-    batch.push(b)
+  if (toArray) {
+    res.push({
+      toArray: [ ...toArray ],
+      recipientVars: { ...recipientVars }
+    })
   }
 
-  return batch
+  return res
 }
 
 module.exports = {

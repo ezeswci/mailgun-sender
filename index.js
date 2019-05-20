@@ -8,7 +8,18 @@ const { sendMails } = require('./helpers/sendMails')
 const { write } = require('./helpers/write')
 const { batchListAndVariables } = require('./helpers/batch')
 
-const html = fs.createReadStream('template.html', 'utf8')
+const readHtml = () => {
+  return new Promise((resolve, reject) => {
+    try {
+      fs.readFile('template.html', 'utf8', (err, html) => {
+        if (err) return reject(err)
+        resolve(html)
+      })
+    } catch (e) {
+      reject(e)
+    }
+  })
+}
 
 const successful = []
 const errSend = [];
@@ -16,6 +27,7 @@ const errSend = [];
 (async function () {
   const { mailgun, base } = await initService()
   const { emailList, headers } = await importMails()
+  const html = await readHtml()
   const createBatchList = batchListAndVariables(emailList, headers)
 
   console.log('Start sending emails: ')
