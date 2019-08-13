@@ -9,7 +9,7 @@ const initService = () => {
       if (err) reject(err)
       const { keys, mail } = obj
       const mailgun = require('mailgun-js')(keys)
-      resolve({ mailgun, base: mail })
+      resolve({ mailgun, base: mail, keys })
     })
   })
 }

@@ -47,6 +47,14 @@ As to add the link to unsubscribe from email add on HTML template variable %unsu
 
 - More information: https://documentation.mailgun.com/en/latest/api-unsubscribes.html
 
+### unsubscribed list
+
+As to get the list of users unsubscribed run the following code
+
+```console
+node unsubscribed
+```
+
 ## Errors
 
-If there are errors, a csv would be created containing the email that generated the error and a details about it.
+If there are errors, a csv would be created on folder csv containing the email that generated the error and a details about it.

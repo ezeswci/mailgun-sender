@@ -9,6 +9,7 @@ config/*.json
 logs
 sec
 package-lock.json
+csv/*.csv
 
 # Runtime data
 pids
