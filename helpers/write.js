@@ -1,5 +1,5 @@
 const createCsvWriter = require('csv-writer').createArrayCsvWriter
-const path = `errors_${new Date()}_.csv`
+const path = `csv/errors_${new Date()}_.csv`
 const csvWriter = createCsvWriter({
   header: ['EMAIL', 'ERROR'],
   path,
@@ -16,6 +16,21 @@ function write (writeData) {
       })
   })
 }
+function createWriter (path, header) {
+  const csvSimpleWriter = createCsvWriter({ path, header, append: true })
+  return (writeData) => {
+    return new Promise((resolve, reject) => {
+      csvSimpleWriter.writeRecords(writeData)
+        .then(() => {
+          resolve(path)
+        }).catch((e) => {
+          reject(e)
+        })
+    })
+  }
+}
+
 module.exports = {
-  write
+  write,
+  createWriter
 }
